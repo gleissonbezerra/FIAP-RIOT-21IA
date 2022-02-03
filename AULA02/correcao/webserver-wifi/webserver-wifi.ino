@@ -1,23 +1,22 @@
 #include <ESP8266WiFi.h>
  
-const char* ssid = "GNET 2.4";//type your ssid
-const char* password = "F23700623D8D24";//type your password
+const char* ssid = "";//id da sua rede
+const char* password = "";//senha do seu wifi
  
-int ledPin = 2; // GPIO2 of ESP8266
+int ledPin = 2; // GPIO2 
 WiFiServer server(80);
  
 void setup() {
   Serial.begin(115200);
   delay(10);
  
- 
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, LOW);
    
-  // Connect to WiFi network
+  // Inicia conexão
   Serial.println();
   Serial.println();
-  Serial.print("Connecting to ");
+  Serial.print("Conectando a rede ");
   Serial.println(ssid);
    
   WiFi.begin(ssid, password);
@@ -29,12 +28,12 @@ void setup() {
   Serial.println("");
   Serial.println("WiFi connected");
    
-  // Start the server
+  // Iniciar o serviço http na port 80
   server.begin();
-  Serial.println("Server started");
+  Serial.println("Servidor iniciado");
  
-  // Print the IP address
-  Serial.print("Use this URL to connect: ");
+  // Mostra o encereço IP address na serial
+  Serial.print("Utilize esta URL para conectar: ");
   Serial.print("http://");
   Serial.print(WiFi.localIP());
   Serial.println("/");
@@ -42,26 +41,28 @@ void setup() {
 }
  
 void loop() {
-  // Check if a client has connected
+  
+  // Verifica se existe um novo cliente se contando, caso contrario reinicia o loop
   WiFiClient client = server.available();
   if (!client) {
     return;
   }
    
-  // Wait until the client sends some data
-  Serial.println("new client");
+  // Espera o cliente enviar algo
+  Serial.println("Novo Cliente ");
   while(!client.available()){
     delay(1);
   }
    
-  // Read the first line of the request
+  // Le a primeira linha da requisição
   String request = client.readStringUntil('\r');
   Serial.println(request);
   client.flush();
    
-  // Match the request
- 
+  // Variável de controle do led
   int value = LOW;
+  
+  // Verifica se foi pedida uma URL específica
   if (request.indexOf("/LED=ON") != -1) {
     digitalWrite(ledPin, HIGH);
     value = HIGH;
@@ -71,18 +72,14 @@ void loop() {
     value = LOW;
   }
  
-// Set ledPin according to the request
-//digitalWrite(ledPin, value);
-   
- 
-  // Return the response
+  // Retorna a resposta HTTP
   client.println("HTTP/1.1 200 OK");
   client.println("Content-Type: text/html");
   client.println(""); //  do not forget this one
   client.println("<!DOCTYPE HTML>");
   client.println("<html>");
    
-  client.print("Led pin is now: ");
+  client.print("Led status: ");
    
   if(value == HIGH) {
     client.print("On");  
@@ -90,12 +87,12 @@ void loop() {
     client.print("Off");
   }
   client.println("<br><br>");
-  client.println("Click <a href=\"/LED=ON\">here</a> turn the LED on pin 2 ON<br>");
-  client.println("Click <a href=\"/LED=OFF\">here</a> turn the LED on pin 2 OFF<br>");
+  client.println("Clique <a href=\"/LED=ON\">aqui</a> para ligar o LED<br>");
+  client.println("Clique <a href=\"/LED=OFF\">aqui</a> desligar o LED<br>");
   client.println("</html>");
  
   delay(1);
-  Serial.println("Client disonnected");
+  Serial.println("Cliente desconectedado!!!");
   Serial.println("");
  
 }
