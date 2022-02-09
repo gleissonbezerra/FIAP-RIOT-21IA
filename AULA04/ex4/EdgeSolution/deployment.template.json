@@ -83,7 +83,6 @@
       "properties.desired": {
         "schemaVersion": "1.1",
         "routes": {
-          "SampleModulegsbToIoTHub": "FROM /messages/modules/SampleModulegsb/outputs/* INTO $upstream"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
