@@ -114,50 +114,51 @@ async def run_sample(client):
     I2C_INTERVAL = float(os.getenv('I2C_INTERVAL', "5.0"))
 
     while True:
+
+        #TO DO
         #collect temperature data 
 
-        try:
+        # try:
 
-            data = bytes(i2c.read_i2c_block_data(I2C_SLAVE_ADDRESS, 0, 32)).decode('cp855').rstrip()
+        #     data = bytes(i2c.read_i2c_block_data(I2C_SLAVE_ADDRESS, 0, 32)).decode('cp855').rstrip()
 
-            if len(data) > 0:
+        #     if len(data) > 0:
 
-                # print("Received data from I2C slave")
-                # print(data)
+        #         # print("Received data from I2C slave")
+        #         # print(data)
 
-                jsonData = json.loads(data)
+        #         jsonData = json.loads(data)
 
 
-                if jsonData != None and "t" in jsonData and "h" in jsonData:
+        #         if jsonData != None and "t" in jsonData and "h" in jsonData:
 
-                    temperature = jsonData["t"]
-                    humidity = jsonData["h"]
+        #             temperature = jsonData["t"]
+        #             humidity = jsonData["h"]
 
-                    strMessage = '{"type":"telemetryData", "temperature":'+str(temperature)+', "humidity":'+str(humidity)+'}'
+        #             strMessage = '{"type":"telemetryData", "temperature":'+str(temperature)+', "humidity":'+str(humidity)+'}'
 
-                    msg = Message(strMessage)
-                    msg.message_id = uuid.uuid4()
-                    msg.content_encoding = "utf-8"
-                    msg.content_type = "application/json"
+        #             msg = Message(strMessage)
+        #             msg.message_id = uuid.uuid4()
+        #             msg.content_encoding = "utf-8"
+        #             msg.content_type = "application/json"
 
-                    await client.send_message_to_output(msg, "telemetryOutput")
+        #             await client.send_message_to_output(msg, "telemetryOutput")
 
-                else:
+        #         else:
 
-                    print("Error in get sensor data over i2C ")
+        #             print("Error in get sensor data over i2C ")
 
-        except Exception as e:
+        # except Exception as e:
 
-            print("I2C Manager communication error on receiving %s " % e)
+        #     print("I2C Manager communication error on receiving %s " % e)
 
-            time.sleep(2)
+        #     time.sleep(2)
 
-            i2c = smbus2.SMBus(I2C_BUS_NUMBER)
+        #     i2c = smbus2.SMBus(I2C_BUS_NUMBER)
 
-            time.sleep(2)
+        #     time.sleep(2)
 
-            print("Serial BUS restarted {} at {}".format(I2C_BUS_NUMBER, I2C_SLAVE_ADDRESS))
-    
+        #     print("Serial BUS restarted {} at {}".format(I2C_BUS_NUMBER, I2C_SLAVE_ADDRESS))
 
         await asyncio.sleep(I2C_INTERVAL)
 
@@ -183,11 +184,12 @@ def main():
     # NOTE: Client is implicitly connected due to the handler being set on it
     client = create_client()
 
-    i2c = smbus2.SMBus(I2C_BUS_NUMBER)
+    #TO DO
+    # i2c = smbus2.SMBus(I2C_BUS_NUMBER)
 
-    time.sleep(2)
+    # time.sleep(2)
 
-    print("Serial BUS started {} at {}".format(I2C_BUS_NUMBER, I2C_SLAVE_ADDRESS))
+    # print("Serial BUS started {} at {}".format(I2C_BUS_NUMBER, I2C_SLAVE_ADDRESS))
 
     # Define a handler to cleanup when module is is terminated by Edge
     def module_termination_handler(signal, frame):
