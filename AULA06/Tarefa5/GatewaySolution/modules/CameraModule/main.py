@@ -50,6 +50,26 @@ async def run_sample(client):
 
         #TO DO
 
+        # frame = cap.getLastFrame()
+
+        # frame = resize(frame, 0.5)
+
+        # frameBytes = cv.imencode( '.jpg', frame)[1].tobytes()
+        # r = processFrame(frameBytes)
+
+        # #print (r)
+
+        # if r != None and "detections" in r:
+
+        #     del r['fps']
+            
+        #     strMessage = json.dumps(r)
+
+        #     msg = Message(strMessage)
+        #     msg.message_id = uuid.uuid4()
+
+        #     await client.send_message_to_output(msg, "detectionsOutput")
+
         await asyncio.sleep(INFERENCE_INTERVAL)
 
 
