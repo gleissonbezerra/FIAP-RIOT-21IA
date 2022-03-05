@@ -63,7 +63,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "${MODULES.CommandModule.arm32v7}",
+              "image": "${MODULES.CommandModulegsb.arm32v7}",
               "createOptions": 
               {
                 "Env": [
@@ -86,7 +86,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "${MODULES.MobileDetectionModule.arm32v7}",
+              "image": "${MODULES.MobileDetectionModulegsb.arm32v7}",
               "createOptions": 
               {
                 "HostConfig": {
@@ -108,7 +108,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "${MODULES.CameraModule.arm32v7}",
+              "image": "${MODULES.CameraModulegsb.arm32v7}",
               "createOptions": 
               {
                 "Env": [
@@ -131,8 +131,8 @@
       "properties.desired": {
         "schemaVersion": "1.1",
         "routes": {
-          "CameraModuleToCommandModule": "FROM /messages/modules/CameraModule/outputs/detectionsOutput INTO BrokeredEndpoint(\"/modules/CommandModule/inputs/detectionsInput\")",
-          "CommandModuleToIoTHub": "FROM /messages/modules/CommandModule/outputs/* INTO $upstream"
+          "CameraModuleToCommandModule": "FROM /messages/modules/CameraModulegsb/outputs/detectionsOutput INTO BrokeredEndpoint(\"/modules/CommandModulegsb/inputs/detectionsInput\")",
+          "CommandModuleToIoTHub": "FROM /messages/modules/CommandModulegsb/outputs/* INTO $upstream"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
