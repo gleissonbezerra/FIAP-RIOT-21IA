@@ -63,7 +63,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "${MODULES.CommandModule.arm32v7}",
+              "image": "${MODULES.CommandModulegsb.arm32v7}",
               "createOptions": 
               {
                 "Env": [
@@ -86,7 +86,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "${MODULES.MobileDetectionModule.arm32v7}",
+              "image": "${MODULES.MobileDetectionModulegsb.arm32v7}",
               "createOptions": 
               {
                 "HostConfig": {
@@ -108,7 +108,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "${MODULES.CameraModule.arm32v7}",
+              "image": "${MODULES.CameraModulegsb.arm32v7}",
               "createOptions": 
               {
                 "Env": [
