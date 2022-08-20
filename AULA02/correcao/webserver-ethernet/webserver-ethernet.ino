@@ -51,7 +51,7 @@ void loop() {
           client.println("<!DOCTYPE HTML>");
           client.println("<html>");
           
-          client.println("Hello World 21IA!!!");
+          client.println("Hello World!!!");
           client.println("<br />");       
           client.print("Time: ");
           client.println((int)(millis()/1000));
